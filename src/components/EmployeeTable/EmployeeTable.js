@@ -1,5 +1,5 @@
 //import "./EmployeeTable.css";
-import "../Pagination.css";
+import "./Pagination.css";
 import Employee from "../Employee/Employee";
 import { Component } from "react";
 import ReactPaginate from "react-paginate";

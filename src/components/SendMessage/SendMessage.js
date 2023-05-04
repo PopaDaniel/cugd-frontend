@@ -41,10 +41,13 @@ class SendMessage extends Component {
       loading: true,
     });
 
-    const res = await axios.post("http://localhost:3001/send", {
-      phones,
-      message,
-    });
+    const res = await axios.post(
+      "https://casutaursitoarelor-api.onrender.com/send",
+      {
+        phones,
+        message,
+      }
+    );
     this.setState({
       qrcode: res.data,
     });

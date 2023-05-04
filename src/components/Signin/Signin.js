@@ -32,10 +32,13 @@ class Signin extends Component {
   };
 
   signIn = async () => {
-    const res = await axios.post("http://localhost:3001/signin", {
-      user: this.state.user,
-      password: this.state.password,
-    });
+    const res = await axios.post(
+      "https://casutaursitoarelor-api.onrender.com/signin",
+      {
+        user: this.state.user,
+        password: this.state.password,
+      }
+    );
     const jwt = res.data.token;
     setLocalStorage("jwt", jwt);
     this.props.getUserJwt(jwt);

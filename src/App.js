@@ -38,7 +38,9 @@ class App extends Component {
   };
 
   async componentDidMount() {
-    const { data } = await axios.get("http://localhost:3001/");
+    const { data } = await axios.get(
+      "https://casutaursitoarelor-api.onrender.com/"
+    );
 
     const imgData = [data[0][0]];
     this.setState({

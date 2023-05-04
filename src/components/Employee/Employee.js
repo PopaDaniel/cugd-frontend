@@ -7,7 +7,9 @@ const Employee = ({ name, phoneNumber, cnp, id }) => {
 
   const onUserClick = async (e) => {
     const id = e.target.parentElement.lastChild.innerText;
-    const { data } = await axios.get(`http://localhost:3001/employees/${id}`);
+    const { data } = await axios.get(
+      `https://casutaursitoarelor-api.onrender.com/employees/${id}`
+    );
 
     return navigate(`/userprofile/${id}`, {
       state: data,

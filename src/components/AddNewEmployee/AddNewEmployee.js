@@ -49,9 +49,13 @@ class AddNewEmployee extends Component {
       formData.append("cnp", cnp);
       formData.append("img", img);
 
-      await axios.post("http://localhost:3001/addNewEmployee", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      await axios.post(
+        "https://casutaursitoarelor-api.onrender.com/addNewEmployee",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
     } catch (err) {
       console.error(err);
     }

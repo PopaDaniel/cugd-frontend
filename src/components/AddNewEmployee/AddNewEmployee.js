@@ -64,7 +64,6 @@ class AddNewEmployee extends Component {
     document.getElementById("employee-mobil-number").value = "";
     document.getElementById("employee-image").value = "";
     document.getElementById("employee-cnp").value = "";
-
     window.location.reload();
   };
 

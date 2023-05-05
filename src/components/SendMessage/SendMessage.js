@@ -1,5 +1,4 @@
 import { Component } from "react";
-// import SearchContact from "../SearchContact/SearchContact";
 import { QRCodeSVG } from "qrcode.react";
 import axios from "axios";
 import Select from "react-select";

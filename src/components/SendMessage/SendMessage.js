@@ -92,10 +92,15 @@ class SendMessage extends Component {
     // const { contacts } = this.state;
 
     return (
-      <div className="tc">
+      <div className="mt5">
         {!this.state.loading && this.state.qrcode && (
-          <QRCodeSVG value={this.state.qrcode} className="mb4" />
+          <div className="tc ma5">
+            <div>
+              <QRCodeSVG value={this.state.qrcode} />
+            </div>
+          </div>
         )}
+        {/* <SearchContact contacts={contacts} sendMsg={this.getRecepient} /> */}
         <div className="center">
           <Select
             isMulti
@@ -108,26 +113,31 @@ class SendMessage extends Component {
             onChange={(choice) => this.getUserChoice(choice)}
           />
         </div>
-        <label htmlFor="message" className="tc f6 b db mt4 mb3">
-          Message
-        </label>
+        <div className="pa4 black-80 center">
+          <div>
+            <label htmlFor="message" className="tc f6 b db mb2">
+              Message
+            </label>
 
-        <textarea
-          id="message"
-          name="message"
-          className="center db border-box hover-black measure ba b--black-20 pa2 br2 mb2"
-          aria-describedby="message-desc"
-          rows="13"
-          style={{ width: "500px" }}
-          onChange={this.getMessage}
-        ></textarea>
-
-        <input
-          onClick={() => this.sendMessage()}
-          className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
-          type="submit"
-          value="Send"
-        />
+            <textarea
+              id="message"
+              name="message"
+              className="db border-box hover-black  measure ba b--black-20 pa2 br2 mb2"
+              aria-describedby="message-desc"
+              rows="13"
+              style={{ width: "500px" }}
+              onChange={this.getMessage}
+            ></textarea>
+            <div className="tc">
+              <input
+                onClick={() => this.sendMessage()}
+                className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
+                type="submit"
+                value="Send"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

@@ -13,7 +13,9 @@ const SendMessage = ({ contacts }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get("http://localhost:3001/qrcode");
+        const { data } = await axios.get(
+          "https://casutaursitoarelor-api.onrender.com/qrcode"
+        );
         if (data) {
           //setLoading(true);
           setQRCode(data);

@@ -38,12 +38,9 @@ const App = () => {
 
   const fetchData = async (jwt) => {
     try {
-      const { data } = await axios.get(
-        "https://casuta-ursitoarelor.onrender.com/",
-        {
-          headers: { Authorization: `Bearer ${jwt}` },
-        }
-      );
+      const { data } = await axios.get("http://localhost:3001/", {
+        headers: { Authorization: `Bearer ${jwt}` },
+      });
 
       const imgData = [data[0][0]];
       setEmployeesList(data[1]);

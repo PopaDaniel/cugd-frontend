@@ -28,7 +28,7 @@ const AddNewEmployee = () => {
       });
 
       await axios.post(
-        "https://casuta-ursitoarelor.onrender.com/addNewEmployee",
+        "https://casutaursitoarelor-api.onrender.com/addNewEmployee",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },

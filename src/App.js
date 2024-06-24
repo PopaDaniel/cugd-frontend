@@ -39,7 +39,7 @@ const App = () => {
   const fetchData = async (jwt) => {
     try {
       const { data } = await axios.get(
-        "https://casuta-ursitoarelor.onrender.com/",
+        "https://casutaursitoarelor-api.onrender.com/",
         {
           headers: { Authorization: `Bearer ${jwt}` },
         }

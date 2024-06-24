@@ -26,7 +26,7 @@ const Signin = ({ getUserJwt }) => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "https://casuta-ursitoarelor.onrender.com/signin",
+        "https://casutaursitoarelor-api.onrender.com/signin",
         {
           user,
           password,

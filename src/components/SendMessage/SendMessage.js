@@ -24,7 +24,7 @@ const SendMessage = ({ contacts }) => {
     const checkConnectionStatus = async () => {
       try {
         const response = await axios.get(
-          "https://casuta-ursitoarelor.onrender.com/status"
+          "https://casutaursitoarelor-api.onrender.com/status"
         );
         setConnected(response.data.connected);
         setStatus(
@@ -47,7 +47,7 @@ const SendMessage = ({ contacts }) => {
   const fetchQRCode = async () => {
     try {
       const response = await axios.get(
-        "https://casuta-ursitoarelor.onrender.com/connect"
+        "https://casutaursitoarelor-api.onrender.com/connect"
       );
       if (response.data.qr) {
         setQRCode(response.data.qr);
@@ -72,7 +72,7 @@ const SendMessage = ({ contacts }) => {
   const handleDisconnect = async () => {
     try {
       const response = await axios.get(
-        "https://casuta-ursitoarelor.onrender.com/disconnect"
+        "https://casutaursitoarelor-api.onrender.com/disconnect"
       );
       setStatus(response.data.message);
       setConnected(false);
@@ -100,7 +100,7 @@ const SendMessage = ({ contacts }) => {
 
     try {
       const res = await axios.post(
-        "https://casuta-ursitoarelor.onrender.com/send",
+        "https://casutaursitoarelor-api.onrender.com/send",
         {
           phones,
           message,

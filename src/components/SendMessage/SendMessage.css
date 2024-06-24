@@ -1,0 +1,129 @@
+/* SendMessage.css */
+
+.send-message {
+  font-family: "Roboto", sans-serif;
+  margin-top: 2rem;
+  position: relative;
+}
+
+.status-container {
+  text-align: right;
+  margin-right: 1rem;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 8px;
+  display: inline-block;
+}
+
+.status-dot.green {
+  background-color: #28a745;
+}
+
+.status-dot.red {
+  background-color: #dc3545;
+}
+
+.status-text {
+  font-size: 1rem;
+  color: #555;
+  display: inline-block;
+}
+
+.connection-section,
+.disconnect-section {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.qr-code {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.status {
+  margin-top: 1rem;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.connect-button,
+.disconnect-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.connect-button:hover,
+.disconnect-button:hover {
+  background-color: #0056b3;
+}
+
+.contacts-select {
+  margin: 2rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+.message-section {
+  background: #f9f9f9;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+}
+
+.message-container {
+  width: 100%;
+  max-width: 500px;
+}
+
+.message-label {
+  font-size: 1.1rem;
+  color: #555;
+  text-align: center;
+}
+
+.message-textarea {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.send-button-container {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.send-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.send-button:hover {
+  background-color: #218838;
+}
+
+.status-message {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  color: #777;
+}

@@ -30,15 +30,6 @@ body {
   align-items: center;
 }
 
-.profile-image {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 1rem;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
 .profile-details {
   text-align: left;
   width: 100%;
@@ -55,4 +46,40 @@ body {
   font-size: 1.5rem;
   color: #333;
   margin: 0 0 1rem 0;
+}
+
+.attachments-container {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.attachments-container p {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.attachments {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.attachment-image,
+.file-icon {
+  margin: 0.5rem;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.file-icon {
+  font-size: 60px;
+  color: #007bff;
+}
+
+.attachment-image:hover,
+.file-icon:hover {
+  transform: scale(1.1);
 }

@@ -1,0 +1,24 @@
+.employee-row {
+  text-align: center;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  transition: background-color 0.3s;
+}
+
+.employee-row:hover {
+  background-color: #f1f1f1;
+}
+
+.employee-cell {
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.employee-cell:first-child {
+  font-weight: bold;
+  color: #007bff;
+}
+
+.employee-cell:first-child:hover {
+  color: #0056b3;
+}

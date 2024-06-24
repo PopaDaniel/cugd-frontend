@@ -1,72 +1,94 @@
-.App {
-  text-align: center;
-}
-
-.center {
-  display: flex;
-  justify-content: center;
-}
-
-* {
+/* General styles */
+body {
+  font-family: "Arial", sans-serif;
   margin: 0;
   padding: 0;
-  text-decoration: none;
-}
-.container {
-  display: flex;
-}
-main {
-  width: 100%;
-  padding: 20px;
-}
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  background: #000;
-  color: #fff;
-  height: 100vh;
-  width: 200px;
-  transition: all 0.5s;
-}
-.top_section {
-  display: flex;
-  align-items: center;
-  padding: 20px 15px;
-}
-.logo {
-  font-size: 30px;
-}
-.bars {
-  display: flex;
-  font-size: 25px;
-  margin-left: 50px;
-  cursor: pointer;
-}
-.link {
-  display: flex;
-  color: #fff;
-  padding: 10px 15px;
-  gap: 15px;
-  transition: all 0.5s;
-}
-.link:hover {
-  background: lightskyblue;
-  color: #000;
-  transition: all 0.5s;
-}
-.active {
-  background: lightskyblue;
-  color: #000;
-}
-.icon,
-.link_text {
-  font-size: 20px;
+  box-sizing: border-box;
+  background: #f4f4f4;
 }
 
-.log_out {
+/* Sidebar styles */
+.sidebar-container {
   display: flex;
-  color: #fff;
-  padding: 10px 15px;
-  gap: 15px;
-  transition: all 0.5s;
+}
+
+.sidebar {
+  height: 100vh;
+  width: 60px;
+  background: #2c3e50;
+  transition: width 0.3s;
+  position: fixed;
+  overflow: hidden;
+}
+
+.sidebar.open {
+  width: 200px;
+}
+
+.top-section {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+}
+
+.logo {
+  color: white;
+  font-size: 1.5rem;
+  margin-left: 1rem;
+}
+
+.logo.hide {
+  display: none;
+}
+
+.toggle-button {
+  cursor: pointer;
+  color: white;
+  font-size: 1.5rem;
+  margin-left: auto;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  color: white;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.link:hover {
+  background: #34495e;
+}
+
+.icon {
+  font-size: 1.2rem;
+}
+
+.link-text {
+  margin-left: 1rem;
+  font-size: 1rem;
+}
+
+.link-text.hide {
+  display: none;
+}
+
+.sign-out {
+  position: absolute;
+  bottom: 1rem;
+  width: 100%;
+}
+
+/* Main content styles */
+.main {
+  margin-left: 60px;
+  padding: 2rem; /* Added padding */
+  width: calc(100% - 60px); /* Adjusted width */
+  transition: margin-left 0.3s, width 0.3s;
+}
+
+.main.shifted {
+  margin-left: 200px;
+  width: calc(100% - 200px); /* Adjusted width */
 }

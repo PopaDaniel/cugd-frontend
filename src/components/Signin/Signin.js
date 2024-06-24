@@ -1,94 +1,97 @@
-import { Component } from "react";
+import React, { useState, useEffect } from "react";
 import "./Signin.css";
 import { setLocalStorage } from "../../helpers/localStorage";
 import axios from "axios";
+// import Particles from "react-tsparticles";
+// import { loadFull } from "tsparticles";
 
-class Signin extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: "",
-      password: "",
-    };
-  }
-  componentDidMount() {
+const Signin = ({ getUserJwt }) => {
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
+
+  useEffect(() => {
     document.body.classList.add("background-linear-gradient");
-  }
+    return () => {
+      document.body.classList.remove("background-linear-gradient");
+    };
+  }, []);
 
-  componentWillUnmount() {
-    document.body.classList.remove("background-linear-gradient");
-  }
-
-  getUser = (e) => {
-    this.setState({
-      user: e.target.value,
-    });
+  const getUser = (e) => {
+    setUser(e.target.value);
   };
 
-  getUserPassword = (e) => {
-    this.setState({
-      password: e.target.value,
-    });
+  const getUserPassword = (e) => {
+    setPassword(e.target.value);
   };
 
-  signIn = async () => {
-    const res = await axios.post(
-      "https://casutaursitoarelor-api.onrender.com/signin",
-      {
-        user: this.state.user,
-        password: this.state.password,
-      }
-    );
-    const jwt = res.data.token;
-    setLocalStorage("jwt", jwt);
-    this.props.getUserJwt(jwt);
+  const signIn = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(
+        "https://casuta-ursitoarelor.onrender.com/signin",
+        {
+          user,
+          password,
+        }
+      );
+      const jwt = res.data.token;
+      setLocalStorage("jwt", jwt);
+      getUserJwt(jwt);
+    } catch (error) {
+      console.error("Error signing in:", error);
+    }
   };
 
-  render() {
-    return (
-      <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
-        <main className="pa4 black-80">
-          <div className="measure">
-            <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
-              <legend className="f1 fw6 ph0 mh0">Sign In</legend>
-              <div className="mt3">
-                <label className="db fw6 lh-copy f6" htmlFor="Username">
+  // const particlesInit = async (main) => {
+  //   await loadFull(main);
+  // };
+
+  //const particlesLoaded = (container) => {};
+
+  return (
+    <div className="signin-container">
+      <article className="signin-card">
+        <main className="signin-main">
+          <div className="signin-form">
+            <fieldset className="signin-fieldset">
+              <legend className="signin-legend">Sign In</legend>
+              <div className="signin-input-container">
+                <label className="signin-label" htmlFor="Username">
                   Username
                 </label>
                 <input
-                  className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
-                  type="user"
+                  className="signin-input"
+                  type="text"
                   name="Username"
                   id="Username"
-                  onChange={this.getUser}
+                  value={user}
+                  onChange={getUser}
                 />
               </div>
-              <div className="mv3">
-                <label className="db fw6 lh-copy f6" htmlFor="password">
+              <div className="signin-input-container">
+                <label className="signin-label" htmlFor="password">
                   Password
                 </label>
                 <input
-                  className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                  className="signin-input"
                   type="password"
                   name="password"
                   id="password"
-                  onChange={this.getUserPassword}
+                  value={password}
+                  onChange={getUserPassword}
                 />
               </div>
             </fieldset>
-            <div className="">
-              <input
-                onClick={this.signIn}
-                className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
-                type="submit"
-                value="Sign in"
-              />
+            <div className="signin-button-container">
+              <button onClick={signIn} className="signin-button">
+                Sign in
+              </button>
             </div>
           </div>
         </main>
       </article>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default Signin;

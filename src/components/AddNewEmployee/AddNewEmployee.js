@@ -1,56 +1,34 @@
-import { Component } from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import "./AddNewEmployee.css"; // Importing the custom CSS file
 
-class AddNewEmployee extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      employeeName: "",
-      phoneNumber: "",
-      cnp: "",
-      img: "",
-    };
-  }
+const AddNewEmployee = () => {
+  const [employeeName, setEmployeeName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [cnp, setCnp] = useState("");
+  const [files, setFiles] = useState([]);
 
-  getEmployeeFullName = (e) => {
-    this.setState({
-      employeeName: e.target.value,
-    });
-  };
+  const getEmployeeFullName = (e) => setEmployeeName(e.target.value);
+  const getEmployeeNumber = (e) => setPhoneNumber(e.target.value);
+  const getEmployeeCnp = (e) => setCnp(e.target.value);
+  const getEmployeeFiles = (e) => setFiles(Array.from(e.target.files));
 
-  getEmployeeNumber = (e) => {
-    this.setState({
-      phoneNumber: e.target.value,
-    });
-  };
-
-  getEmployeeCnp = (e) => {
-    this.setState({
-      cnp: e.target.value,
-    });
-  };
-
-  getEmployeeImg = (e) => {
-    this.setState({
-      img: e.target.files[0],
-    });
-  };
-
-  addNewEmployee = async () => {
+  const addNewEmployee = async () => {
     try {
       const formData = new FormData();
-      const employeeName = this.state.employeeName.trim();
-      const phoneNumber = this.state.phoneNumber.trim();
-      const cnp = this.state.cnp.trim();
-      const img = this.state.img;
+      const employeeNameTrimmed = employeeName.trim();
+      const phoneNumberTrimmed = phoneNumber.trim();
+      const cnpTrimmed = cnp.trim();
 
-      formData.append("employeeName", employeeName);
-      formData.append("phoneNumber", phoneNumber);
-      formData.append("cnp", cnp);
-      formData.append("img", img);
+      formData.append("employeeName", employeeNameTrimmed);
+      formData.append("phoneNumber", phoneNumberTrimmed);
+      formData.append("cnp", cnpTrimmed);
+      files.forEach((file, index) => {
+        formData.append("files", file);
+      });
 
       await axios.post(
-        "https://casutaursitoarelor-api.onrender.com/addNewEmployee",
+        "https://casuta-ursitoarelor.onrender.com/addNewEmployee",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -60,84 +38,79 @@ class AddNewEmployee extends Component {
       console.error(err);
     }
 
-    document.getElementById("employee-name").value = "";
-    document.getElementById("employee-mobil-number").value = "";
-    document.getElementById("employee-image").value = "";
-    document.getElementById("employee-cnp").value = "";
+    setEmployeeName("");
+    setPhoneNumber("");
+    setCnp("");
+    setFiles([]);
     window.location.reload();
   };
 
-  render() {
-    return (
-      <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
-        <main className="pa4 black-80">
-          <div className="measure">
-            <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
-              <legend className="f2 fw6 ph0 mh0">Add New Employee</legend>
-              <div className="mt3">
-                <label className="db fw6 lh-copy f6" htmlFor="employee-name">
-                  Name
-                </label>
-                <input
-                  className="pa2 input-reset w-100"
-                  type="text"
-                  name="employee-name"
-                  id="employee-name"
-                  onChange={this.getEmployeeFullName}
-                />
-              </div>
-              <div className="mv3">
-                <label className="db fw6 lh-copy f6" htmlFor="text">
-                  Phone Number
-                </label>
-                <input
-                  className="pa2 input-reset w-100"
-                  type="text"
-                  name="employee-mobil-number"
-                  id="employee-mobil-number"
-                  onChange={this.getEmployeeNumber}
-                />
-              </div>
-              <div className="mv3">
-                <label className="db fw6 lh-copy f6" htmlFor="text">
-                  CNP
-                </label>
-                <input
-                  className="pa2 input-reset w-100"
-                  type="text"
-                  name="employee-cnp"
-                  id="employee-cnp"
-                  onChange={this.getEmployeeCnp}
-                />
-              </div>
-              <div className="mv3">
-                <label className="pa2 input-reset" htmlFor="img">
-                  Select image:
-                </label>
-                <input
-                  alt="profile-pic"
-                  type="file"
-                  id="employee-image"
-                  name="img"
-                  accept="image/*"
-                  onChange={this.getEmployeeImg}
-                />
-              </div>
-            </fieldset>
-
-            <div className="tc">
-              <input
-                onClick={() => this.addNewEmployee()}
-                className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
-                type="submit"
-                value="Add"
-              />
-            </div>
+  return (
+    <div className="form-container">
+      <main className="form-content">
+        <fieldset className="form-fieldset">
+          <legend className="form-legend">Add New Employee</legend>
+          <div className="form-group">
+            <label className="form-label" htmlFor="employee-name">
+              Name
+            </label>
+            <input
+              className="form-input"
+              type="text"
+              name="employee-name"
+              id="employee-name"
+              value={employeeName}
+              onChange={getEmployeeFullName}
+            />
           </div>
-        </main>
-      </article>
-    );
-  }
-}
+          <div className="form-group">
+            <label className="form-label" htmlFor="employee-mobil-number">
+              Phone Number
+            </label>
+            <input
+              className="form-input"
+              type="text"
+              name="employee-mobil-number"
+              id="employee-mobil-number"
+              value={phoneNumber}
+              onChange={getEmployeeNumber}
+            />
+          </div>
+          <div className="form-group">
+            <label className="form-label" htmlFor="employee-cnp">
+              CNP
+            </label>
+            <input
+              className="form-input"
+              type="text"
+              name="employee-cnp"
+              id="employee-cnp"
+              value={cnp}
+              onChange={getEmployeeCnp}
+            />
+          </div>
+          <div className="form-group">
+            <label className="form-label" htmlFor="employee-files">
+              Select Files
+            </label>
+            <input
+              className="form-input"
+              type="file"
+              id="employee-files"
+              name="files"
+              multiple
+              onChange={getEmployeeFiles}
+            />
+          </div>
+        </fieldset>
+        <div className="form-submit-container">
+          <button onClick={addNewEmployee} className="form-submit">
+            Add
+          </button>
+        </div>
+      </main>
+    </div>
+  );
+};
 
 export default AddNewEmployee;

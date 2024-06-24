@@ -1,5 +1,5 @@
 import "./App.css";
-import { Component } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Signin from "../src/components/Signin/Signin";
 import EmployeeTable from "./components/EmployeeTable/EmployeeTable";
@@ -9,87 +9,97 @@ import Profile from "./components/Profile/Profile";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Dashboard from "./components/Dashboard/Dashboard";
 import EmployeeProfile from "./components/EmployeeProfile/EmployeeProfile";
-import { getLocalStorage } from "../src/helpers/localStorage";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { getLocalStorage, setLocalStorage } from "../src/helpers/localStorage";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      employeesList: [],
-      jwt: "",
-      manager: {
-        name: "",
-        img: [],
-      },
-    };
-  }
+const App = () => {
+  const [employeesList, setEmployeesList] = useState([]);
+  const [jwt, setJwt] = useState("");
+  const [manager, setManager] = useState({
+    name: "",
+    img: [],
+  });
+  const [loading, setLoading] = useState(true);
 
-  onRouteChange = (route) => {
-    this.setState({
-      route: route,
-    });
-  };
+  useEffect(() => {
+    const jwt = getLocalStorage("jwt");
+    if (jwt) {
+      setJwt(jwt);
+      fetchData(jwt);
+    } else {
+      setLoading(false);
+    }
+  }, []);
 
-  getJwt = (jwt) => {
-    this.setState({
-      jwt: jwt,
-    });
-  };
+  const fetchData = async (jwt) => {
+    try {
+      const { data } = await axios.get(
+        "https://casuta-ursitoarelor.onrender.com/",
+        {
+          headers: { Authorization: `Bearer ${jwt}` },
+        }
+      );
 
-  async componentDidMount() {
-    const { data } = await axios.get(
-      "https://casutaursitoarelor-api.onrender.com/"
-    );
-
-    const imgData = [data[0][0]];
-    this.setState({
-      employeesList: data[1],
-      manager: {
+      const imgData = [data[0][0]];
+      setEmployeesList(data[1]);
+      setManager({
         name: data[0][0].managerName,
         img: imgData,
-      },
-    });
+      });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setJwt("");
+      setLocalStorage("jwt", "");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getJwt = (newJwt) => {
+    setJwt(newJwt);
+    setLocalStorage("jwt", newJwt);
+    fetchData(newJwt);
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
   }
 
-  render() {
-    const manager = this.state.manager;
-    const employeeList = this.state.employeesList;
-    if (this.state.jwt || (getLocalStorage("jwt") && manager.name.length)) {
-      return (
-        <Router>
-          <Sidebar>
-            <Routes>
-              <Route
-                path="/dashboard"
-                exact
-                element={<Dashboard totalEmployees={employeeList.length} />}
-              />
-              <Route
-                path="/employees"
-                element={<EmployeeTable users={employeeList} />}
-              />
-              <Route path="/addemployee" element={<AddNewEmployee />} />
-              <Route
-                path="/sendmessage"
-                element={<SendMessage contacts={employeeList} />}
-              />
-              <Route path="/profile" element={<Profile manager={manager} />} />
-              <Route path="/userprofile/:id" element={<EmployeeProfile />} />
-            </Routes>
-          </Sidebar>
-        </Router>
-      );
-    } else {
-      return (
-        <Router>
+  return (
+    <Router>
+      {jwt && manager.name.length ? (
+        <Sidebar>
           <Routes>
-            <Route path="*" element={<Signin getUserJwt={this.getJwt} />} />
+            <Route path="/" element={<Navigate to="/dashboard" />} />
+            <Route
+              path="/dashboard"
+              element={<Dashboard totalEmployees={employeesList.length} />}
+            />
+            <Route
+              path="/employees"
+              element={<EmployeeTable users={employeesList} />}
+            />
+            <Route path="/addemployee" element={<AddNewEmployee />} />
+            <Route
+              path="/sendmessage"
+              element={<SendMessage contacts={employeesList} />}
+            />
+            <Route path="/profile" element={<Profile manager={manager} />} />
+            <Route path="/userprofile/:id" element={<EmployeeProfile />} />
           </Routes>
-        </Router>
-      );
-    }
-  }
-}
+        </Sidebar>
+      ) : (
+        <Routes>
+          <Route path="*" element={<Signin getUserJwt={getJwt} />} />
+        </Routes>
+      )}
+    </Router>
+  );
+};
 
 export default App;

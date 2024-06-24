@@ -1,102 +1,83 @@
-//import "./EmployeeTable.css";
-import "./Pagination.css";
+import React, { useState, useEffect } from "react";
+import "./EmployeeTable.css"; // Importing the custom CSS file
 import Employee from "../Employee/Employee";
-import { Component } from "react";
 import ReactPaginate from "react-paginate";
+
 import SearchBox from "../SearchBox/SearchBox";
 
-class EmployeeTable extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      users: props.users,
-      page: 1,
-      employeePerPage: 10,
-      searchField: "",
-      length: "",
-    };
-  }
+const EmployeeTable = ({ users }) => {
+  const [page, setPage] = useState(1);
+  const [employeePerPage] = useState(10);
+  const [searchField, setSearchField] = useState("");
+  const [filteredEmployees, setFilteredEmployees] = useState(users);
 
-  onSearchChange = (e) => {
-    this.setState({
-      searchField: e.target.value,
-    });
+  useEffect(() => {
+    setFilteredEmployees(
+      users.filter((employee) =>
+        employee.employeeName.toLowerCase().includes(searchField.toLowerCase())
+      )
+    );
+    setPage(1);
+  }, [users, searchField]);
+
+  const handleChangePage = ({ selected }) => {
+    setPage(selected + 1);
   };
 
-  onChangePage = ({ selected }) => {
-    this.setState({
-      page: selected + 1,
-    });
+  const start = (page - 1) * employeePerPage;
+  const end = page * employeePerPage;
+  const employees = filteredEmployees.slice(start, end);
+
+  const handleSearchChange = (e) => {
+    setSearchField(e.target.value);
   };
 
-  // onUserClick = (e) => {
-  //   console.log(e.target);
-  // };
-
-  getSearchResults = () => {
-    const filteredEmployees = this.state.users.filter((employee) => {
-      return employee.employeeName
-        .toLowerCase()
-        .includes(this.state.searchField.toLowerCase());
-    });
-    return filteredEmployees;
-  };
-  render() {
-    const start = (this.state.page - 1) * this.state.employeePerPage;
-    const end = this.state.page * this.state.employeePerPage;
-    const employeesArr = this.getSearchResults();
-    const employees = employeesArr.slice(start, end);
-    return (
-      <div>
-        <SearchBox searchChange={this.onSearchChange} />
-        <div className="pa4">
-          <div className="overflow-auto center">
-            <table className="f6 w-100 mw9 " cellSpacing="0">
-              <thead>
-                <tr className="stripe-dark">
-                  <th className="fw6 pa3 bg-white">Name</th>
-                  <th className="fw6 pa3 bg-white">Phone Number</th>
-                  <th className="fw6 pa3 bg-white">Cnp</th>
-                  <th className="fw6 pa3 bg-white">ID</th>
-                </tr>
-              </thead>
-              <tbody className="lh-copy">
-                {employees.map((user, i) => {
-                  return (
-                    <Employee
-                      key={i}
-                      id={user._id}
-                      name={user.employeeName}
-                      phoneNumber={user.phoneNumber}
-                      cnp={user.cnp}
-                    />
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-          <div>
-            <ReactPaginate
-              breakLabel="..."
-              nextLabel="Next >"
-              onPageChange={this.onChangePage}
-              pageRangeDisplayed={5}
-              pageCount={Math.ceil(
-                employeesArr.length / this.state.employeePerPage
-              )}
-              previousLabel="< Previous"
-              renderOnZeroPageCount={null}
-              containerClassName={"navigationButtons"}
-              previousLinkClassName={"previousButton"}
-              nextLinkClassName={"nextButton"}
-              disabledClassName={"navigationDisabled"}
-              activeClassName={"navigationActive"}
-            />
-          </div>
+  return (
+    <div className="employee-table-container">
+      <SearchBox searchChange={handleSearchChange} />
+      <div className="table-wrapper">
+        <div className="table-container">
+          <table className="employee-table">
+            <thead>
+              <tr>
+                <th className="table-header">Name</th>
+                <th className="table-header">Phone Number</th>
+                <th className="table-header">CNP</th>
+                <th className="table-header">ID</th>
+              </tr>
+            </thead>
+            <tbody>
+              {employees.map((user, i) => (
+                <Employee
+                  key={i}
+                  id={user._id}
+                  name={user.employeeName}
+                  phoneNumber={user.phoneNumber}
+                  cnp={user.cnp}
+                />
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="pagination-container">
+          <ReactPaginate
+            breakLabel="..."
+            nextLabel="Next >"
+            onPageChange={handleChangePage}
+            pageRangeDisplayed={5}
+            pageCount={Math.ceil(filteredEmployees.length / employeePerPage)}
+            previousLabel="< Previous"
+            renderOnZeroPageCount={null}
+            containerClassName={"pagination"}
+            previousLinkClassName={"pagination-link"}
+            nextLinkClassName={"pagination-link"}
+            disabledClassName={"pagination-disabled"}
+            activeClassName={"pagination-active"}
+          />
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default EmployeeTable;

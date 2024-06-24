@@ -1,21 +1,87 @@
-.App {
+/* Container styles */
+.employee-table-container {
+  font-family: "Roboto", sans-serif;
+  margin: 2rem auto;
+  max-width: 1200px;
+}
+
+/* Table wrapper */
+.table-wrapper {
+  margin-top: 1rem;
+  background: #f9f9f9;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Table styles */
+.table-container {
+  overflow-x: auto;
+}
+
+.employee-table {
   width: 100%;
-  height: 100vh;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+.table-header {
+  font-weight: 700;
+  background-color: #007bff;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+.employee-table th,
+.employee-table td {
+  border: 1px solid #ddd;
+  padding: 1rem;
+}
+
+.employee-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.employee-table tbody tr:hover {
+  background-color: #e2e2e2;
+}
+
+/* Pagination styles */
+.pagination-container {
+  margin-top: 2rem;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
-table {
-  border: 2px solid forestgreen;
-  width: 800px;
-  height: 200px;
+.pagination {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
 }
 
-th {
-  border-bottom: 1px solid black;
+.pagination-link {
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #007bff;
+  color: #007bff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-td {
-  text-align: center;
+.pagination-link:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.pagination-disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination-active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
 }

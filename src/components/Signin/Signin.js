@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./Signin.css";
 import { setLocalStorage } from "../../helpers/localStorage";
 import axios from "axios";
-// import Particles from "react-tsparticles";
-// import { loadFull } from "tsparticles";
 
 const Signin = ({ getUserJwt }) => {
   const [user, setUser] = useState("");
@@ -41,12 +39,6 @@ const Signin = ({ getUserJwt }) => {
       console.error("Error signing in:", error);
     }
   };
-
-  // const particlesInit = async (main) => {
-  //   await loadFull(main);
-  // };
-
-  //const particlesLoaded = (container) => {};
 
   return (
     <div className="signin-container">

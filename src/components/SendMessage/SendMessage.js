@@ -23,7 +23,9 @@ const SendMessage = ({ contacts }) => {
   useEffect(() => {
     const checkConnectionStatus = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/status");
+        const response = await axios.get(
+          "https://casutaursitoarelor-api.onrender.com/status"
+        );
         setConnected(response.data.connected);
         setStatus(
           response.data.connected ? "Connected to WhatsApp" : "Not connected"
@@ -45,7 +47,9 @@ const SendMessage = ({ contacts }) => {
 
   const fetchQRCode = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/connect");
+      const response = await axios.get(
+        "https://casutaursitoarelor-api.onrender.com/connect"
+      );
       if (response.data.qr) {
         setQRCode(response.data.qr);
         setStatus("Scan the QR code");
@@ -69,7 +73,9 @@ const SendMessage = ({ contacts }) => {
 
   const handleDisconnect = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/disconnect");
+      const response = await axios.get(
+        "https://casutaursitoarelor-api.onrender.com/disconnect"
+      );
       setStatus(response.data.message);
       setConnected(false);
       setQRCode(null);
@@ -95,10 +101,13 @@ const SendMessage = ({ contacts }) => {
     let phones = sendTo.map((contact) => `4${contact.value}@c.us`);
 
     try {
-      const res = await axios.post("http://localhost:3001/send", {
-        phones,
-        message,
-      });
+      const res = await axios.post(
+        "https://casutaursitoarelor-api.onrender.com/send",
+        {
+          phones,
+          message,
+        }
+      );
       if (res.data.failed && res.data.failed.length > 0) {
         setNotification({
           show: true,

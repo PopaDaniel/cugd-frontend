@@ -48,6 +48,32 @@ body {
   margin: 0 0 1rem 0;
 }
 
+.profile-details input {
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  width: 100%;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.edit-button,
+.save-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 1rem;
+}
+
+.edit-button:hover,
+.save-button:hover {
+  background-color: #0056b3;
+}
+
 .attachments-container {
   margin-top: 1rem;
   width: 100%;
@@ -65,9 +91,13 @@ body {
   justify-content: center;
 }
 
+.attachment-item {
+  position: relative;
+  margin: 0.5rem;
+}
+
 .attachment-image,
 .file-icon {
-  margin: 0.5rem;
   width: 60px;
   height: 60px;
   cursor: pointer;
@@ -82,4 +112,17 @@ body {
 .attachment-image:hover,
 .file-icon:hover {
   transform: scale(1.1);
+}
+
+.delete-icon {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  color: red;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.file-input {
+  margin-top: 1rem;
 }

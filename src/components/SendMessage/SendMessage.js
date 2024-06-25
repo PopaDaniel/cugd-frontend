@@ -40,7 +40,7 @@ const SendMessage = ({ contacts }) => {
     };
 
     checkConnectionStatus();
-    const interval = setInterval(checkConnectionStatus, 2000);
+    const interval = setInterval(checkConnectionStatus, 5000);
     return () => clearInterval(interval);
   }, [qrTimeout]);
 
@@ -53,7 +53,7 @@ const SendMessage = ({ contacts }) => {
         setQRCode(response.data.qr);
         setStatus("Scan the QR code");
 
-        const timeout = setTimeout(fetchQRCode, 5000);
+        const timeout = setTimeout(fetchQRCode, 30000);
         setQrTimeout(timeout);
       } else {
         setStatus(response.data.message);

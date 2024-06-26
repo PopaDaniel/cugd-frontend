@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+// EmployeeProfile.js
 import React, { useState, useCallback, useEffect } from "react";
 import "./EmployeeProfile.css";
 import {
@@ -10,7 +10,8 @@ import {
   FaTrashAlt,
 } from "react-icons/fa";
 import axios from "axios";
-
+import { useLocation } from "react-router-dom";
+import DeleteButton from "../DeleteButton/DeleteButton";
 const EmployeeProfile = () => {
   const { state: userData } = useLocation();
   const [isEditing, setIsEditing] = useState(false);
@@ -26,7 +27,7 @@ const EmployeeProfile = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://casutaursitoarelor-api.onrender.com/employees/${userData._id}`
+          `https://casutaursitoarelor-api.onrender.com/${userData._id}`
         );
         setEditableData(response.data);
       } catch (error) {
@@ -166,6 +167,10 @@ const EmployeeProfile = () => {
         <button className="edit-button" onClick={handleEditClick}>
           {isEditing ? "Cancel" : "Edit"}
         </button>
+        <DeleteButton
+          userId={userData._id}
+          onDelete={() => console.log("Delete")}
+        />
       </div>
 
       <div className="profile-container">

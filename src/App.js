@@ -20,10 +20,10 @@ import {
 const App = () => {
   const [employeesList, setEmployeesList] = useState([]);
   const [jwt, setJwt] = useState("");
-  const [manager, setManager] = useState({
-    name: "",
-    img: [],
-  });
+  // const [manager, setManager] = useState({
+  //   name: "",
+  //   img: [],
+  // });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -38,16 +38,15 @@ const App = () => {
 
   const fetchData = async (jwt) => {
     try {
-      const { data } = await axios.get("https://cugd-api.vercel.app/employee", {
+      const { data } = await axios.get("http://localhost:3001/", {
         headers: { Authorization: `Bearer ${jwt}` },
       });
-
-      const imgData = [data[0][0]];
-      setEmployeesList(data[1]);
-      setManager({
-        name: data[0][0].managerName,
-        img: imgData,
-      });
+      //const imgData = [data[0][0]];
+      setEmployeesList(data);
+      // setManager({
+      //   name: data[0][0].managerName,
+      //   img: imgData,
+      // });
     } catch (error) {
       console.error("Error fetching data:", error);
       setJwt("");
@@ -69,7 +68,7 @@ const App = () => {
 
   return (
     <Router>
-      {jwt && manager.name.length ? (
+      {jwt ? (
         <Sidebar>
           <Routes>
             <Route path="/" element={<Navigate to="/dashboard" />} />
@@ -86,7 +85,7 @@ const App = () => {
               path="/sendmessage"
               element={<SendMessage contacts={employeesList} />}
             />
-            <Route path="/profile" element={<Profile manager={manager} />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/userprofile/:id" element={<EmployeeProfile />} />
           </Routes>
         </Sidebar>
@@ -100,3 +99,37 @@ const App = () => {
 };
 
 export default App;
+
+//   return (
+//     <Router>
+//       {jwt && manager.name.length ? (
+//         <Sidebar>
+//           <Routes>
+//             <Route path="/" element={<Navigate to="/dashboard" />} />
+//             <Route
+//               path="/dashboard"
+//               element={<Dashboard totalEmployees={employeesList.length} />}
+//             />
+//             <Route
+//               path="/employees"
+//               element={<EmployeeTable users={employeesList} />}
+//             />
+//             <Route path="/addemployee" element={<AddNewEmployee />} />
+//             <Route
+//               path="/sendmessage"
+//               element={<SendMessage contacts={employeesList} />}
+//             />
+//             <Route path="/profile" element={<Profile manager={manager} />} />
+//             <Route path="/userprofile/:id" element={<EmployeeProfile />} />
+//           </Routes>
+//         </Sidebar>
+//       ) : (
+//         <Routes>
+//           <Route path="*" element={<Signin getUserJwt={getJwt} />} />
+//         </Routes>
+//       )}
+//     </Router>
+//   );
+// };
+
+// export default App;

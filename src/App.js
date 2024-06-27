@@ -38,12 +38,9 @@ const App = () => {
 
   const fetchData = async (jwt) => {
     try {
-      const { data } = await axios.get(
-        "https://casutaursitoarelor-api.onrender.com/",
-        {
-          headers: { Authorization: `Bearer ${jwt}` },
-        }
-      );
+      const { data } = await axios.get("https://cugd-api.vercel.app/employee", {
+        headers: { Authorization: `Bearer ${jwt}` },
+      });
 
       const imgData = [data[0][0]];
       setEmployeesList(data[1]);

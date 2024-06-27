@@ -14,7 +14,7 @@ const DeleteButton = ({ userId, onDelete }) => {
   const handleDelete = async () => {
     try {
       const response = await axios.delete(
-        `https://casutaursitoarelor-api.onrender.com/delete/${userId}`
+        `https://cugd-api.vercel.app/delete/${userId}`
       );
       if (response.status === 200) {
         onDelete();

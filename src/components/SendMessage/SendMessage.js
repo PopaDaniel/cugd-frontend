@@ -23,9 +23,7 @@ const SendMessage = ({ contacts }) => {
   useEffect(() => {
     const checkConnectionStatus = async () => {
       try {
-        const response = await axios.get(
-          "https://casutaursitoarelor-api.onrender.com/status"
-        );
+        const response = await axios.get("https://cugd-api.vercel.app/status");
         setConnected(response.data.connected);
         setStatus(
           response.data.connected ? "Connected to WhatsApp" : "Not connected"
@@ -47,9 +45,7 @@ const SendMessage = ({ contacts }) => {
 
   const fetchQRCode = async () => {
     try {
-      const response = await axios.get(
-        "https://casutaursitoarelor-api.onrender.com/connect"
-      );
+      const response = await axios.get("https://cugd-api.vercel.app/connect");
       if (response.data.qr) {
         setQRCode(response.data.qr);
         setStatus("Scan the QR code");
@@ -74,7 +70,7 @@ const SendMessage = ({ contacts }) => {
   const handleDisconnect = async () => {
     try {
       const response = await axios.get(
-        "https://casutaursitoarelor-api.onrender.com/disconnect"
+        "https://cugd-api.vercel.app/disconnect"
       );
       setStatus(response.data.message);
       setConnected(false);
@@ -101,13 +97,10 @@ const SendMessage = ({ contacts }) => {
     let phones = sendTo.map((contact) => `4${contact.value}@c.us`);
 
     try {
-      const res = await axios.post(
-        "https://casutaursitoarelor-api.onrender.com/send",
-        {
-          phones,
-          message,
-        }
-      );
+      const res = await axios.post("https://cugd-api.vercel.app/send", {
+        phones,
+        message,
+      });
       if (res.data.failed && res.data.failed.length > 0) {
         setNotification({
           show: true,

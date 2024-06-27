@@ -27,7 +27,7 @@ const EmployeeProfile = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://casutaursitoarelor-api.onrender.com/${userData._id}`
+          `https://cugd-api.vercel.app/${userData._id}`
         );
         setEditableData(response.data);
       } catch (error) {
@@ -75,7 +75,7 @@ const EmployeeProfile = () => {
   const handleSave = useCallback(async () => {
     try {
       const response = await axios.post(
-        "https://casutaursitoarelor-api.onrender.com/update-employee",
+        "https://cugd-api.vercel.app/update-employee",
         {
           ...editableData,
           id: userData._id,
@@ -87,7 +87,7 @@ const EmployeeProfile = () => {
         setIsEditing(false);
         // Fetch the updated data after saving
         const updatedResponse = await axios.get(
-          `https://casutaursitoarelor-api.onrender.com/employees/${userData._id}`
+          `https://cugd-api.vercel.app/employees/${userData._id}`
         );
         setEditableData(updatedResponse.data);
       } else {

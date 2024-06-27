@@ -25,13 +25,10 @@ const Signin = ({ getUserJwt }) => {
   const signIn = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        "https://casutaursitoarelor-api.onrender.com/signin",
-        {
-          user,
-          password,
-        }
-      );
+      const res = await axios.post("https://cugd-api.vercel.app/signin", {
+        user,
+        password,
+      });
       const jwt = res.data.token;
       setLocalStorage("jwt", jwt);
       getUserJwt(jwt);

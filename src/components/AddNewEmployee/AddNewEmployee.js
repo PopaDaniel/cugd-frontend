@@ -27,13 +27,9 @@ const AddNewEmployee = () => {
         formData.append("files", file);
       });
 
-      await axios.post(
-        "https://casutaursitoarelor-api.onrender.com/addNewEmployee",
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
+      await axios.post("https://cugd-api.vercel.app/addNewEmployee", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
     } catch (err) {
       console.error(err);
     }

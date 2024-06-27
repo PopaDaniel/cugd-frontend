@@ -9,7 +9,7 @@ const Employee = ({ name, phoneNumber, cnp, id }) => {
     try {
       const id = e.target.parentElement.lastChild.innerText;
       const { data } = await axios.get(
-        `https://casutaursitoarelor-api.onrender.com/employees/${id}`
+        `https://cugd-api.vercel.app/employees/${id}`
       );
 
       return navigate(`/userprofile/${id}`, {
